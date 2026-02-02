@@ -1,7 +1,7 @@
 import os
 import asyncio
-from telethon import TelegramClient, events
-from telethon.sessions import StringSession
+from pyrogram import Client, filters
+from pyrogram.types import Message
 from flask import Flask
 from threading import Thread
 
@@ -12,43 +12,51 @@ SESSION = os.environ['SESSION_STRING']
 SOURCE = os.environ['SOURCE_GROUP']
 TARGET = os.environ['TARGET_GROUP']
 
-# Telegram client
-client = TelegramClient(StringSession(SESSION), API_ID, API_HASH)
+# Create Pyrogram client
+app = Client(
+    "forwarder",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    session_string=SESSION
+)
+
+# Forward message function
+@app.on_message(filters.chat(SOURCE))
+async def forward_message(client, message: Message):
+    try:
+        await message.forward(TARGET)
+        print(f"✓ Forwarded: {message.id}")
+    except Exception as e:
+        print(f"✗ Error: {e}")
 
 async def main():
-    # Connect
-    await client.connect()
+    print("Starting Telegram forwarder...")
+    await app.start()
     print("✅ Connected to Telegram!")
     
-    # Get groups
-    source_chat = await client.get_entity(SOURCE)
-    target_chat = await client.get_entity(TARGET)
+    # Get chat info
+    source_chat = await app.get_chat(SOURCE)
+    target_chat = await app.get_chat(TARGET)
     
     print(f"👁️ Watching: {source_chat.title}")
     print(f"📤 Forwarding to: {target_chat.title}")
-    
-    # Forward messages
-    @client.on(events.NewMessage(chats=source_chat))
-    async def handler(event):
-        await client.send_message(target_chat, event.message)
-        print(f"✓ Forwarded message")
+    print("🚀 Forwarder is active!")
     
     # Keep running
-    await client.run_until_disconnected()
+    await idle()
 
-# Web server to keep alive
-app = Flask(__name__)
-@app.route('/')
+# Web server
+flask_app = Flask(__name__)
+@flask_app.route('/')
 def home():
-    return "Telegram Forwarder is Running!"
+    return "Telegram Forwarder Running!"
 
-def run_flask():
-    app.run(host='0.0.0.0', port=8080)
+def run_web():
+    flask_app.run(host='0.0.0.0', port=8080)
 
-# Start everything
 if __name__ == "__main__":
     # Start web server
-    Thread(target=run_flask, daemon=True).start()
+    Thread(target=run_web, daemon=True).start()
     
-    # Start Telegram
-    asyncio.run(main())
+    # Start Telegram client
+    app.run(main())
