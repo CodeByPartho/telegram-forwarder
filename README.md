@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>⚡ Telegram Auto-Forwarder</h1>
+ <h1>Telegram Auto-Forwarder</h1>
 
   <p><b>High-Speed Asynchronous Channel & Group Forwarding Bot</b></p>
 
@@ -20,7 +20,7 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 **Telegram Auto-Forwarder** is a resilient background daemon that monitors source Telegram channels, supergroups, or chats and instantly clones/forwards messages to a target channel. 
 
@@ -28,17 +28,17 @@ Equipped with a built-in lightweight Flask health-check endpoint, it is turnkey 
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
-- ⚡ **Instant Event-Driven Relay** — Built on Pyrogram's asynchronous event loop with C-accelerated cryptographic processing (`tgcrypto`).
-- 🔄 **Media & Formatting Retention** — Forwards all message types including text, photos, video files, voice notes, stickers, and documents with markup intact.
-- 🐳 **Dockerized Deployment** — Containerized with a minimal `python:3.11-slim` footprint for rapid 1-click cloud deployments.
-- 🩺 **Cloud Health-Check Server** — Integrated non-blocking Flask web server responding to HTTP health pings to keep cloud dynos alive.
-- 🔐 **String Session Support** — Authenticates using Pyrogram String Sessions, eliminating the need to commit sensitive SQLite `.session` files to version control.
+- **Instant Event-Driven Relay** — Built on Pyrogram's asynchronous event loop with C-accelerated cryptographic processing (`tgcrypto`).
+- **Media & Formatting Retention** — Forwards all message types including text, photos, video files, voice notes, stickers, and documents with markup intact.
+- **Dockerized Deployment** — Containerized with a minimal `python:3.11-slim` footprint for rapid 1-click cloud deployments.
+- **Cloud Health-Check Server** — Integrated non-blocking Flask web server responding to HTTP health pings to keep cloud dynos alive.
+- **String Session Support** — Authenticates using Pyrogram String Sessions, eliminating the need to commit sensitive SQLite `.session` files to version control.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
@@ -49,7 +49,7 @@ Equipped with a built-in lightweight Flask health-check endpoint, it is turnkey 
 
 ---
 
-## 💻 Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Python**: `>= 3.10`
@@ -87,7 +87,7 @@ Equipped with a built-in lightweight Flask health-check endpoint, it is turnkey 
 
 ---
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 Build and run using Docker:
 ```bash
@@ -97,10 +97,10 @@ docker run -d --env-file .env -p 8080:8080 telegram-forwarder
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **[MIT License](LICENSE)**.
 
 ---
 
-<p align="center">Made with ❤️ by Partho</p>
+<p align="center">Built by Partho</p>
